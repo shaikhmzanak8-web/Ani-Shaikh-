@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -140,7 +141,7 @@ fun AnimeRow(a: Anime, onClick: () -> Unit) {
         Spacer(Modifier.width(12.dp))
         Column(Modifier.align(Alignment.CenterVertically)) {
             Text(a.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
-            val sub = listOfNotNull(a.status.ifBlank { null }, a.episodes?.let { "$it eps" }).joinToString(" • ")
+            val sub = listOfNotNull(a.status.ifBlank { null }, a.episodes?.let { "$it eps" }).joinToString(" - ")
             Text(sub, color = Color.Gray, fontSize = 12.sp)
         }
     }
@@ -179,7 +180,9 @@ fun SearchTab(st: Prefs, onPick: (Anime) -> Unit) {
     }
     Column(Modifier.fillMaxSize()) {
         OutlinedTextField(
-            value = q, onValueChange = { q = it }, singleLine = true,
+            value = q,
+            onValueChange = { text: String -> q = text },
+            singleLine = true,
             placeholder = { Text("Search anime or paste a direct link") },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { go() }),
