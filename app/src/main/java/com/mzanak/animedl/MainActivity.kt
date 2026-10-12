@@ -57,10 +57,15 @@ class Prefs(ctx: Context) {
     var quality by mutableIntStateOf(p.getInt("quality", 1)); private set
     var wifiOnly by mutableStateOf(p.getBoolean("wifi", false)); private set
     var dub by mutableStateOf(p.getBoolean("dub", false)); private set
+    @JvmName("saveAccent")
     fun setAccent(v: Int) { accent = v; p.edit().putInt("accent", v).apply() }
+    @JvmName("saveAmoled")
     fun setAmoled(v: Boolean) { amoled = v; p.edit().putBoolean("amoled", v).apply() }
+    @JvmName("saveQuality")
     fun setQuality(v: Int) { quality = v; p.edit().putInt("quality", v).apply() }
+    @JvmName("saveWifiOnly")
     fun setWifiOnly(v: Boolean) { wifiOnly = v; p.edit().putBoolean("wifi", v).apply() }
+    @JvmName("saveDub")
     fun setDub(v: Boolean) { dub = v; p.edit().putBoolean("dub", v).apply() }
 }
 
